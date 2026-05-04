@@ -1,7 +1,7 @@
-use halo2_proofs::{dev::MockProver, halo2curves::bn256::Fr};
+use halo2_proofs::{dev::{MockProver, VerifyFailure}, halo2curves::bn256::Fr};
 use poseidon_cell::circuit::MerkleCircuit;
 
-fn verify(cards: [Fr; 2], salts: [Fr; 2]) -> Result<(), Vec<halo2_proofs::dev::VerifyFailure>> {
+fn verify(cards: [Fr; 2], salts: [Fr; 2]) -> Result<(), Vec<VerifyFailure>> {
     let circuit = MerkleCircuit { cards, salts };
     MockProver::run(10, &circuit, vec![])
         .expect("MockProver::run failed")
@@ -9,7 +9,7 @@ fn verify(cards: [Fr; 2], salts: [Fr; 2]) -> Result<(), Vec<halo2_proofs::dev::V
 }
 
 #[test]
-fn test_identity_permutation() {
+fn test_success() {
     let cards: [Fr; 2] = [1.into(), 2.into()];
     let salts: [Fr; 2] = [1.into(), 2.into()];
     assert!(verify(cards, salts).is_ok());
@@ -17,7 +17,7 @@ fn test_identity_permutation() {
 
 
 #[test]
-fn test_equality_failure() {
+fn test_failure() {
     let cards: [Fr; 2] = [3.into(), 2.into()];
     let salts: [Fr; 2] = [1.into(), 2.into()];
     assert!(verify(cards, salts).is_err());

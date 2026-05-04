@@ -7,4 +7,5 @@ pub struct MerkleConfig {
     pub leaf_column: Column<Advice>,
     pub node_column: Column<Advice>,
     pub q_equality: Selector,
+    pub q_sum: Selector,
 }
