@@ -1,0 +1,9 @@
+[package]
+name = "poseidon-cell"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ff = "0.13"
+rand = "0.8"
+halo2_proofs = { git = "https://github.com/privacy-scaling-explorations/halo2", tag = "v0.3.0" }
